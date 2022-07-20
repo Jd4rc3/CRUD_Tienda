@@ -29,10 +29,7 @@ public class ClientController {
         return clientService.getClients();
     }
 
-    @GetMapping("/gmail")
-    public List<Cliente> getClientesGmail() {
-        return clientService.onlyGmail();
-    }
+
 
     @GetMapping("/{correo}/{nombre}")
     public void getClientByCorreo(@PathVariable(value = "correo") String correo,

@@ -1,4 +1,7 @@
-package com.sofka.tienda2.preuba;
+package com.sofka.tienda2.domain;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +14,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "producto")
 public class Producto {
     @Id
@@ -25,22 +29,7 @@ public class Producto {
     private Integer prodValor;
 
     @OneToMany(mappedBy = "prodIdProducto")
+    @JsonBackReference(value = "producto-factura")
     private Set<Detalle> detalles = new LinkedHashSet<>();
-
-    public Integer getId() {return id;}
-
-    public void setId(Integer id) {this.id = id;}
-
-    public String getProdNombre() {return prodNombre;}
-
-    public void setProdNombre(String prodNombre) {this.prodNombre = prodNombre;}
-
-    public Integer getProdValor() {return prodValor;}
-
-    public void setProdValor(Integer prodValor) {this.prodValor = prodValor;}
-
-    public Set<Detalle> getDetalles() {return detalles;}
-
-    public void setDetalles(Set<Detalle> detalles) {this.detalles = detalles;}
 
 }

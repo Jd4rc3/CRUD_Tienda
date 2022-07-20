@@ -5,36 +5,35 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-@Entity
+
 @Data
+@Entity
 @Table(name = "cliente")
 public class Cliente {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cli_id")
+    @Column(name = "cli_id", nullable = false)
     private Integer id;
 
-    @Column(name = "cli_nombre")
-    private String nombre;
+    @Column(name = "cli_nombre", nullable = false, length = 100)
+    private String cliNombre;
 
-    @Column(name = "cli_telefono")
-    private String telefono;
+    @Column(name = "cli_telefono", length = 50)
+    private String cliTelefono;
 
-    @Column(name = "cli_correo")
-    private String correo;
+    @Column(name = "cli_correo", nullable = false, length = 100)
+    private String cliCorreo;
 
-    @OneToOne(mappedBy = "cli_id", fetch = FetchType.EAGER, targetEntity = Factura.class)
+    @OneToMany(mappedBy = "cliIdCliente") //Al atributo de la clase con la referencia al id del cliente
     @JsonManagedReference(value = "cliente-factura")
-    private Factura factura;
+    private Set<Factura> facturas = new LinkedHashSet<>();
+
 }

@@ -1,6 +1,8 @@
-package com.sofka.tienda2.preuba;
+package com.sofka.tienda2.domain;
 
-import com.sofka.tienda2.domain.Factura;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "detalle")
+@Data
 public class Detalle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +24,14 @@ public class Detalle {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonBackReference(value = "factura-detalle")
     @JoinColumn(name = "fac_id_factura", nullable = false)
     private Factura facIdFactura;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonManagedReference(value = "producto-detalle")
+    @JoinColumn(name = "prod_id_producto", nullable = false)
+    private Producto prodIdProducto;
 
     @Column(name = "det_cantidad", nullable = false)
     private Integer detCantidad;
@@ -36,21 +45,5 @@ public class Detalle {
     public Integer getId() {return id;}
 
     public void setId(Integer id) {this.id = id;}
-
-    public Factura getFacIdFactura() {return facIdFactura;}
-
-    public void setFacIdFactura(Factura facIdFactura) {this.facIdFactura = facIdFactura;}
-
-    public Integer getDetCantidad() {return detCantidad;}
-
-    public void setDetCantidad(Integer detCantidad) {this.detCantidad = detCantidad;}
-
-    public Integer getDetIva() {return detIva;}
-
-    public void setDetIva(Integer detIva) {this.detIva = detIva;}
-
-    public Integer getDetDescuento() {return detDescuento;}
-
-    public void setDetDescuento(Integer detDescuento) {this.detDescuento = detDescuento;}
 
 }
