@@ -23,15 +23,15 @@ public class Detalle {
     @Column(name = "det_id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonBackReference(value = "factura-detalle")
-    @JoinColumn(name = "fac_id_factura", nullable = false)
-    private Factura facIdFactura;
+    //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //    @JsonBackReference(value = "factura-detalle")
+    //    @JoinColumn(name = "fac_id_factura", nullable = false)
+    //    private Factura facIdFactura;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonManagedReference(value = "producto-detalle")
-    @JoinColumn(name = "prod_id_producto", nullable = false)
-    private Producto prodIdProducto;
+    //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //    @JsonManagedReference(value = "producto-detalle")
+    //    @JoinColumn(name = "prod_id_producto", nullable = false)
+    //    private Producto prodIdProducto;
 
     @Column(name = "det_cantidad", nullable = false)
     private Integer detCantidad;

@@ -28,8 +28,8 @@ public class Producto {
     @Column(name = "prod_valor", nullable = false)
     private Integer prodValor;
 
-    @OneToMany(mappedBy = "prodIdProducto")
-    @JsonBackReference(value = "producto-factura")
-    private Set<Detalle> detalles = new LinkedHashSet<>();
+    //    @OneToMany(mappedBy = "prodIdProducto")
+    //    @JsonBackReference(value = "producto-factura")
+    //    private Set<Detalle> detalles = new LinkedHashSet<>();
 
 }

@@ -1,45 +1,29 @@
 package com.sofka.tienda2.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import javax.persistence.*;
 
-@Entity
 @Data
 @Table(name = "factura")
+@Entity
 public class Factura {
     @Id
+    @Column(name = "fac_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fac_id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ven_id_vendedor", nullable = false)
-    @JsonManagedReference(value = "vendedor-factura")
-    private Vendedor venIdVendedor;
+    @Column(name = "ven_id_vendedor")
+    private Integer vendedor;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonBackReference(value = "cliente-factura")
-    @JoinColumn(name = "cli_id_cliente", nullable = false)
-    private Cliente cliIdCliente;
+    @JsonBackReference(value = "cliente-factura") // evita que se intente serializar otro cliente
+    @JoinColumn(name = "cli_id_cliente")
+    @ManyToOne(targetEntity = Cliente.class)
+    private Cliente cliente;
 
-    @Column(name = "fac_descuento_general", nullable = false)
-    private Integer facDescuentoGeneral;
+    @Column(name = "fac_descuento_general")
+    private Integer descuento;
 
-    @OneToMany(mappedBy = "facIdFactura")
-    @JsonManagedReference(value = "factura-detalle")
-    private Set<Detalle> detalles = new LinkedHashSet<>();
+
 }

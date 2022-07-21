@@ -28,8 +28,8 @@ public class Vendedor {
     @Column(name = "ven_correo", nullable = false, length = 100)
     private String venCorreo;
 
-    @OneToMany(mappedBy = "venIdVendedor")
-    @JsonBackReference
-    private Set<Factura> facturas = new LinkedHashSet<>();
+    //    @OneToMany(mappedBy = "venIdVendedor")
+    //    @JsonBackReference
+    //    private Set<Factura> facturas = new LinkedHashSet<>();
 
 }

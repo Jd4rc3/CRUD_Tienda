@@ -4,7 +4,6 @@ import com.sofka.tienda2.domain.Cliente;
 import com.sofka.tienda2.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -29,7 +26,10 @@ public class ClientController {
         return clientService.getClients();
     }
 
-
+    @GetMapping("/{id}")
+    public Cliente getCliente(@PathVariable(name = "id") Integer id) {
+        return clientService.getClient(id);
+    }
 
     @GetMapping("/{correo}/{nombre}")
     public void getClientByCorreo(@PathVariable(value = "correo") String correo,
