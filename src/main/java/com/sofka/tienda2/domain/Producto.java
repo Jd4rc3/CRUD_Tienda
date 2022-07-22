@@ -3,15 +3,9 @@ package com.sofka.tienda2.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,7 +23,8 @@ public class Producto {
     @Column(name = "prod_valor", nullable = false)
     private Integer prodValor;
 
-    @ManyToOne(targetEntity = Detalle.class)
-    @JsonBackReference(value = "producto-detalle")
-    private Detalle detalles;
+    @OneToMany(mappedBy = "producto", fetch = FetchType.EAGER)
+    @JsonBackReference(value = "detalle-producto")
+    private List<Detalle> detalle;
+
 }

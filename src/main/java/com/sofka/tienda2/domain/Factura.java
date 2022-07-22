@@ -1,10 +1,12 @@
 package com.sofka.tienda2.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Table(name = "factura")
@@ -26,8 +28,8 @@ public class Factura {
     private Cliente clienta;
 
     @JsonManagedReference(value = "factura-detalle")
-    @OneToOne(mappedBy = "facIdFactura", fetch = FetchType.EAGER)
-    private Detalle detalle;
+    @OneToMany(mappedBy = "facIdFactura", fetch = FetchType.EAGER)
+    private List<Detalle> detalles = new ArrayList<>();
 
     @Column(name = "fac_descuento_general")
     private Integer descuento;

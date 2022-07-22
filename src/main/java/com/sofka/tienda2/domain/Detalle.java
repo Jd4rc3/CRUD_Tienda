@@ -4,17 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +17,15 @@ public class Detalle {
     @Column(name = "det_id", nullable = false)
     private Integer id;
 
-        @OneToOne(fetch = FetchType.LAZY, optional = false)
-        @JsonBackReference(value = "factura-detalle")
-        @JoinColumn(name = "fac_id_factura", nullable = false)
-        private Factura facIdFactura;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonBackReference(value = "factura-detalle")
+    @JoinColumn(name = "fac_id_factura", nullable = false, insertable = false, updatable = false)
+    private Factura facIdFactura;
 
-        @OneToMany(mappedBy = "detalles")
-        @JsonManagedReference(value = "producto-detalle")
-        @JoinColumn(name = "prod_id_producto", nullable = false)
-        private List<Producto> productsList = new ArrayList<>();
+    @ManyToOne(targetEntity = Producto.class, fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "detalle-producto")
+    @JoinColumn(name = "fac_id_factura", nullable = false)
+    private Producto producto;
 
     @Column(name = "det_cantidad", nullable = false)
     private Integer detCantidad;
