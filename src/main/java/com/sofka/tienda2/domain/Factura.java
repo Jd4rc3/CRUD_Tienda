@@ -1,6 +1,7 @@
 package com.sofka.tienda2.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,16 +15,20 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "ven_id_vendedor")
-    private Integer vendedor;
+    @JsonManagedReference(value = "factura-vendedor")
+    @JoinColumn(name = "ven_id_vendedor")
+    @ManyToOne(targetEntity = Vendedor.class)
+    private Vendedor vendedor;
 
-    @JsonBackReference(value = "cliente-factura") // evita que se intente serializar otro cliente
+    @JsonManagedReference(value = "factura-cliente")
     @JoinColumn(name = "cli_id_cliente")
     @ManyToOne(targetEntity = Cliente.class)
-    private Cliente cliente;
+    private Cliente clienta;
+
+    @JsonManagedReference(value = "factura-detalle")
+    @OneToOne(mappedBy = "facIdFactura", fetch = FetchType.EAGER)
+    private Detalle detalle;
 
     @Column(name = "fac_descuento_general")
     private Integer descuento;
-
-
 }

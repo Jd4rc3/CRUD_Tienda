@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.LinkedHashSet;
@@ -28,8 +29,7 @@ public class Producto {
     @Column(name = "prod_valor", nullable = false)
     private Integer prodValor;
 
-    //    @OneToMany(mappedBy = "prodIdProducto")
-    //    @JsonBackReference(value = "producto-factura")
-    //    private Set<Detalle> detalles = new LinkedHashSet<>();
-
+    @ManyToOne(targetEntity = Detalle.class)
+    @JsonBackReference(value = "producto-detalle")
+    private Detalle detalles;
 }
