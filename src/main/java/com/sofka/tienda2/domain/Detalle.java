@@ -24,7 +24,7 @@ public class Detalle {
 
     @ManyToOne(targetEntity = Producto.class, fetch = FetchType.EAGER)
     @JsonManagedReference(value = "detalle-producto")
-    @JoinColumn(name = "fac_id_factura", nullable = false)
+    @JoinColumn(name = "prod_id_producto", nullable = false)
     private Producto producto;
 
     @Column(name = "det_cantidad", nullable = false)
