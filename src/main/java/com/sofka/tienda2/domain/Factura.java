@@ -30,7 +30,6 @@ public class Factura {
     @JsonManagedReference(value = "factura-detalle")
     @OneToMany(mappedBy = "facIdFactura", fetch = FetchType.EAGER)
     private List<Detalle> detalles = new ArrayList<>();
-
     @Column(name = "fac_descuento_general")
     private Integer descuento;
 }

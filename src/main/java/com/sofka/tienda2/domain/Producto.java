@@ -3,10 +3,15 @@ package com.sofka.tienda2.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.util.LinkedHashSet;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -26,5 +31,4 @@ public class Producto {
     @OneToMany(mappedBy = "producto", fetch = FetchType.EAGER)
     @JsonBackReference(value = "detalle-producto")
     private List<Detalle> detalle;
-
 }
