@@ -17,7 +17,6 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/client")
 public class ClientController {
-
     @Autowired
     ClientService clientService;
 
